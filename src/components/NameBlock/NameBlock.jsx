@@ -5,6 +5,6 @@ export const Title = ({ text }) => {
   return <H1>{text}</H1>;
 };
 
-Title.prototype = {
-  text:PropTypes.string.isRequired,
+Title.propTypes = {
+  text: PropTypes.string.isRequired,
 };

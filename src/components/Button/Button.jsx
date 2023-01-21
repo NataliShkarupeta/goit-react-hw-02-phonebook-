@@ -1,15 +1,15 @@
-import { But } from "./Button.styled";
-import PropTypes from 'prop-types'; 
+import { But } from './Button.styled';
+import PropTypes from 'prop-types';
 
-export const Button = ({ onClicked ,text}) => {
+export const Button = ({ onClicked, text, disabled }) => {
   return (
-    <But type="button" onClick={onClicked}>
+    <But type="button" onClick={onClicked} disabled={disabled}>
       {text}
     </But>
   );
 };
 
-Button.prototype = {
+Button.propTypes = {
   text: PropTypes.string.isRequired,
-  onClicked:PropTypes.func.isRequired,
+  onClicked: PropTypes.func.isRequired,
 };

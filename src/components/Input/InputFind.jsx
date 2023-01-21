@@ -15,7 +15,8 @@ export const InputFind = ({ find, filter }) => {
   );
 };
 
-InputFind.prototype = {
+
+InputFind.propTypes = {
   find: PropTypes.func.isRequired,
-  filter:PropTypes.string.isRequired,
+  filter: PropTypes.string.isRequired,
 };

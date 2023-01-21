@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'components/Button/Button';
 
 export class InputName extends Component {
-  PropTypes = {
+  static propTypes = {
     contact: PropTypes.arrayOf(PropTypes.shape),
     send: PropTypes.func.isRequired,
   };
@@ -22,22 +22,20 @@ export class InputName extends Component {
 
   handelSubmit = e => {
     e.preventDefault();
-
+    const { name, number } = this.state;
     const { contact } = this.props;
     if (contact.length > 0) {
-      const match = contact.filter(
-        contact =>
-          contact.name === this.state.name &&
-          contact.number === this.state.number
+      const match = contact.find(
+        contact => contact.name === name && contact.number === number
       );
-      if (match.length > 0) {
-        alert(`${this.state.name} already in contacts!!!`);
+      if (match) {
+        alert(`${name} already in contacts!!!`);
       } else {
-        if (this.state.name !== '') this.props.send({ ...this.state });
+        this.props.send({ ...this.state });
         this.setState({ name: '', number: '' });
       }
     } else {
-      if (this.state.name !== '') this.props.send({ ...this.state });
+      this.props.send({ ...this.state });
       this.setState({ name: '', number: '' });
     }
   };
@@ -53,9 +51,9 @@ export class InputName extends Component {
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
             onChange={this.takeInputValue}
             value={name}
+            required
           />
         </Label>
         <Label htmlFor={this.numberInputId}>
@@ -65,12 +63,20 @@ export class InputName extends Component {
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
+            required={this.required}
             onChange={this.takeInputValue}
             value={number}
           />
         </Label>
-        <Button onClicked={this.handelSubmit} text="Add contact" />
+        {name !== '' && number !== '' ? (
+          <Button onClicked={this.handelSubmit} text="Add contact" />
+        ) : (
+          <Button
+            onClicked={this.handelSubmit}
+            text="Add contact"
+            disabled="disabled"
+          />
+        )}
       </>
     );
   }
