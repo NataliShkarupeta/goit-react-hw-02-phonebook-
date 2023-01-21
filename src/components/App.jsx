@@ -24,11 +24,6 @@ export class App extends Component {
     }));
   };
 
-  handelDel = id => {
-    this.setState(prev => ({
-      contacts: prev.contacts.filter(contact => contact.id !== id),
-    }));
-  };
 
   nameForFilter = e => {
     this.setState({ filter: e.target.value });
