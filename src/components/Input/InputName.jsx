@@ -24,16 +24,11 @@ export class InputName extends Component {
     e.preventDefault();
     const { name, number } = this.state;
     const { contact } = this.props;
-    if (contact.length > 0) {
-      const match = contact.find(
-        contact => contact.name === name && contact.number === number
-      );
-      if (match) {
-        alert(`${name} already in contacts!!!`);
-      } else {
-        this.props.send({ ...this.state });
-        this.setState({ name: '', number: '' });
-      }
+    const match = contact.find(
+      contact => contact.name === name && contact.number === number
+    );
+    if (match) {
+      alert(`${name} already in contacts!!!`);
     } else {
       this.props.send({ ...this.state });
       this.setState({ name: '', number: '' });

@@ -24,7 +24,6 @@ export class App extends Component {
     }));
   };
 
-
   nameForFilter = e => {
     this.setState({ filter: e.target.value });
   };
@@ -53,9 +52,7 @@ export class App extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevState);
-    console.log(this.state);
+  componentDidUpdate(prevState) {
     if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem('Contacts', JSON.stringify(this.state.contacts));
     }
